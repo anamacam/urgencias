@@ -6,13 +6,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 
 @Entity
 @Table(name = "person")
 public class Person {
-
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @Id
     private String id;
@@ -31,6 +29,41 @@ public class Person {
     @Column(name = "estado_civil",nullable = false )
     private String estadoCivil;
 
-    public Person(String id, String nombre, String apellido, LocalDate parse, char genero, String estadoCivil) {
+    public Person() {
+    }
+
+    public Person(String id, String nombre, String apellido, LocalDate fechaNacimiento,
+                  Character genero, String estadoCivil) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaNacimiento = fechaNacimiento;
+        this.genero = genero;
+        this.estadoCivil = estadoCivil;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public Character getGenero() {
+        return genero;
+    }
+
+    public String getEstadoCivil() {
+        return estadoCivil;
     }
 }
+

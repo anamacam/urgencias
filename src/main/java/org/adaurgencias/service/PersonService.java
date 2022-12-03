@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 
 @Service
 public class PersonService {
@@ -28,7 +33,27 @@ public class PersonService {
 
         }
 
-        private Person mapToEntity(PersonDTO personDTO){
+    public List<PersonDTO> retrieveAll() {
+        List<Person> persons = personRepository.findAll();
+
+
+        return persons.stream()
+                .map(person -> mapToDTO(person))
+                .collect(Collectors.toList());
+
+    }
+
+    public PersonDTO retrieveById(String id) throws Exception {
+        Optional<Person> person = personRepository.findById(id);
+        if (person.isEmpty()) {
+
+            throw new Exception("La persona consulta no existe.");
+        }
+
+        return mapToDTO(person.get());
+    }
+
+    private Person mapToEntity(PersonDTO personDTO){
         Person person = new Person(personDTO.getId(),
                 personDTO.getNombre(),
                 personDTO.getApellido(),
@@ -38,8 +63,14 @@ public class PersonService {
 
         return person;
 
-
     }
 
+    private PersonDTO mapToDTO(Person person) {
+        PersonDTO personDTO = new PersonDTO(person.getId(), person.getNombre(), person.getApellido(),
+                person.getFechaNacimiento().toString(),person.getGenero(), person.getEstadoCivil();
+
+        return personDTO;
+
+    }
 
 }

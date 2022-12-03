@@ -18,13 +18,32 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestHeader(value = "client-id")String clientId,
-                                 @RequestBody PersonDTO personDTO){
+    public ResponseEntity create(@RequestHeader(value = "client-id") String clientId,
+                                 @RequestBody PersonDTO personDTO) {
         PersonDTO createdPersonDT = personService.create((personDTO));
 
-        return new ResponseEntity(personDTO.getId(),HttpStatus.CREATED);
+        return new ResponseEntity(personDTO.getId(), HttpStatus.CREATED);
 
     }
 
+    @GetMapping
+    public ResponseEntity retrieve() {
+
+        return new ResponseEntity(personService.retrieveAll(),HttpStatus.OK);
+
+    }
+    @GetMapping("/{personId}")
+    public ResponseEntity retrieveById(@PathVariable String personId){
+        try {
+            PersonDTO personDTO = personService.retrieveById(personId);
+
+            return new ResponseEntity(personDTO,HttpStatus.OK);
+        } catch (Exception e) {
+
+        }
+
+        return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
 
 }
+

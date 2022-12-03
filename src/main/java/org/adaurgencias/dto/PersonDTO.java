@@ -16,7 +16,7 @@ public class PersonDTO {
     private String estadoCivil;
 
     public PersonDTO(String id, String nombre, String apellido, String fechaNacimiento,
-                     char genero, String estadoCivil) {
+                     String nacimiento, char genero, String estadoCivil) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
