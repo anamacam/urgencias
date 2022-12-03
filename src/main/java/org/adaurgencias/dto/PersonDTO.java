@@ -1,4 +1,4 @@
-package org.adaurgencias.dto.dto;
+package org.adaurgencias.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
