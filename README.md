@@ -17,9 +17,9 @@ proyecto
     - Realizar el diagramade clases.
     - Conectarse a una base de datos local 
 - [x] Implementar las capas en el proyecto:
-    - Cliente
-    - Controlller
-    - Capa del servicio 
+    - Client
+    - Controller
+    - Capa del Service layer 
     - Capa Model 
     - Tener el mapeo de las tablas definidas en el modelo entidad relación y
 las clases implementadas a nivel de la lógica definida en el diagrama
@@ -29,4 +29,4 @@ cuales se debe poder hacer un CRUD (Create Read Update Delete)
 para cada recurso expuesto.
 - El proyecto debe contar con test unitarios implementados.
     
-    
+![Engelbart](https://www.interviewbit.com/blog/wp-content/uploads/2022/06/Spring-Boot-Workflow-Architecture-800x480.png)    
