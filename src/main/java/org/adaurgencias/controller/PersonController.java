@@ -33,16 +33,17 @@ public class PersonController {
 
     }
     @GetMapping("/{personId}")
-    public ResponseEntity retrieveById(@PathVariable String personId){
+    public ResponseEntity retrieveById(@PathVariable String personId) throws Exception {
         try {
             PersonDTO personDTO = personService.retrieveById(personId);
 
             return new ResponseEntity(personDTO,HttpStatus.OK);
-        } catch (Exception e) {
 
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
-        return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+
     }
 
 }

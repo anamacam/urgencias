@@ -5,10 +5,10 @@ import org.adaurgencias.dto.PersonDTO;
 import org.adaurgencias.entity.Person;
 import org.adaurgencias.repository.PersonRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,17 +17,24 @@ import java.util.stream.Collectors;
 @Service
 public class PersonService {
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
     private final PersonRepository personRepository;
+    private final UrgenciaService urgenciaService;
 
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(PersonRepository personRepository, UrgenciaService urgenciaService) {
         this.personRepository = personRepository;
+        this.urgenciaService = urgenciaService;
     }
 
     public PersonDTO create(PersonDTO personDTO){
         Person person = mapToEntity(personDTO);
         person = personRepository.save(person);
+        if (!CollectionUtils.isEmpty(personDTO.getUrgenciaDTO())){
+            urgenciaService.create(personDTO.getUrgenciaDTO(),person);
+
+
+        }
 
         return personDTO;
 
@@ -66,8 +73,10 @@ public class PersonService {
     }
 
     private PersonDTO mapToDTO(Person person) {
-        PersonDTO personDTO = new PersonDTO(person.getId(), person.getNombre(), person.getApellido(),
-                person.getFechaNacimiento().toString(),person.getGenero(), person.getEstadoCivil();
+        PersonDTO personDTO = new PersonDTO(person.getId(),
+                person.getNombre(), person.getApellido(),
+                person.getFechaNacimiento().toString(),
+                person.getGenero(), person.getEstadoCivil(), null   );
 
         return personDTO;
 

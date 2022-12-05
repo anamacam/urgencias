@@ -1,11 +1,10 @@
 package org.adaurgencias.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -26,8 +25,11 @@ public class Person {
 
     private Character genero;
 
-    @Column(name = "estado_civil",nullable = false )
+    @Column(name = "estado_civil", nullable = false)
     private String estadoCivil;
+
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Urgencia> urgencia;
 
     public Person() {
     }
@@ -40,6 +42,17 @@ public class Person {
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
         this.estadoCivil = estadoCivil;
+    }
+
+    public Person(String id, String nombre, String apellido, LocalDate fechaNacimiento, Character genero,
+                  String estadoCivil, List<Urgencia> urgencia) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.fechaNacimiento = fechaNacimiento;
+        this.genero = genero;
+        this.estadoCivil = estadoCivil;
+        this.urgencia = urgencia;
     }
 
     public String getId() {
@@ -65,5 +78,18 @@ public class Person {
     public String getEstadoCivil() {
         return estadoCivil;
     }
+
+
+    public List<Urgencia> getUrgencia() {
+        if (urgencia == null) {
+            urgencia = new ArrayList<>();
+
+        }
+
+        return urgencia;
+
+
+    }
+
 }
 

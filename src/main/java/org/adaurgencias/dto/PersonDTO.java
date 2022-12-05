@@ -1,6 +1,9 @@
 package org.adaurgencias.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import org.adaurgencias.entity.Urgencia;
+
+import java.util.List;
 
 public class PersonDTO {
 
@@ -8,21 +11,26 @@ public class PersonDTO {
     private String nombre;
     private String apellido;
 
-    @JsonAlias ("fecha_nacimiento")
+    @JsonAlias("fecha_nacimiento")
     private String fechaNacimiento;
     private char genero;
 
     @JsonAlias("estado_civil")
     private String estadoCivil;
 
+    @JsonAlias("ugencias")
+    private List<Urgencia> urgenciaDTO;
+
     public PersonDTO(String id, String nombre, String apellido, String fechaNacimiento,
-                     String nacimiento, char genero, String estadoCivil) {
+                     char genero, String estadoCivil,
+                     List<Urgencia> urgenciaDTO) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
         this.estadoCivil = estadoCivil;
+        this.urgenciaDTO = urgenciaDTO;
     }
 
     public String getId() {
@@ -48,4 +56,13 @@ public class PersonDTO {
     public String getEstadoCivil() {
         return estadoCivil;
     }
+
+    public List<Urgencia> getUrgenciaDTO() {
+        return urgenciaDTO;
+    }
 }
+
+
+
+
+
